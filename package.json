@@ -1,5 +1,5 @@
 {
-  "name": "tenna",
+  "name": "everyone-votes",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -41,5 +41,10 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.47",
     "typescript": "~5.5.2"
+  },
+  "overrides": {
+    "@supabase/supabase-js": {
+      "@supabase/auth-js": "2.61.0"
+    }
   }
 }
