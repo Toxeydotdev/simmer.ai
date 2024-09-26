@@ -1,42 +1,24 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { from } from 'rxjs';
+import { from, map, tap } from 'rxjs';
 import { EveryoneVotesService } from '../../services/everyone-votes.service';
+import { PollComponent } from '../poll/poll.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule],
+  imports: [CommonModule, CardModule, ButtonModule, PollComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  buttons = signal([
-    { label: 'Kamala Harris', icon: 'pi pi-check', isSelected: false },
-    { label: 'Donald Trump', icon: 'pi pi-times', isSelected: false },
-  ]);
+  everyoneVotesService = inject(EveryoneVotesService);
 
-  optionSelected = computed(
-    () => this.buttons().filter((button) => button.isSelected).length < 1
+  polls$ = from(this.everyoneVotesService.getPolls()).pipe(
+    tap((polls) => console.log(polls)),
+    map((polls) => polls.data?.concat(polls.data)),
+    tap((polls) => console.log(polls))
   );
-  // polls: Observable<PostgrestSingleResponse<any[]>>;
-  constructor(everyoneVotesService: EveryoneVotesService) {
-    from(everyoneVotesService.getPolls()).subscribe((polls) => {
-      console.log(polls);
-    });
-  }
-  handleClick(index: number): void {
-    this.buttons.update((buttons) => {
-      return buttons.map((button, i) => {
-        return { ...button, isSelected: i === index };
-      });
-    });
-  }
 }

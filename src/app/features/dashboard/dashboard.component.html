@@ -1,51 +1,6 @@
-<div class="w-full flex justify-content-center">
-  <p-card header="2024 US Election" class="w-6">
-    <ng-template pTemplate="header">
-      <div class="flex border-round-top overflow-hidden">
-        <img
-          class="w-6"
-          src="assets/images/img1.jpg"
-          alt="2024 US
-Presidential Election"
-        />
-        <img
-          class="w-6"
-          src="assets/images/img2.jpg"
-          alt="2024 US
-Presidential Election"
-        />
-      </div>
-    </ng-template>
-
-    <p class="m-0 text-wrap">
-      Who will win the 2024 US Presidential Election? Vote now!
-    </p>
-
-    <ng-template pTemplate="footer">
-      <div class="w-full flex gap-3 mb-3">
-        <button
-          pButton
-          pRipple
-          severity="secondary"
-          *ngFor="let button of buttons(); index as i"
-          (click)="handleClick(i)"
-          [outlined]="!button.isSelected"
-          [raised]="button.isSelected"
-          label="{{ button.label }}"
-          class="w-6"
-        ></button>
-      </div>
-      <div class="w-full flex gap-3">
-        <button
-          [disabled]="optionSelected()"
-          pButton
-          pRipple
-          [severity]="'success'"
-          [raised]="true"
-          label="Vote Now"
-          class="w-full"
-        ></button>
-      </div>
-    </ng-template>
-  </p-card>
+<div
+  class="w-full flex justify-content-center gap-8 flex-wrap"
+  *ngIf="polls$ | async as polls"
+>
+  <app-poll *ngFor="let poll of polls" [poll]="poll" class="flex" />
 </div>

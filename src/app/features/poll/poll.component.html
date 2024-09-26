@@ -1,0 +1,44 @@
+<p-card header="{{ poll().poll_title }}" class="flex flex-grow-1 w-26rem">
+  <ng-template pTemplate="header">
+    <div class="flex border-round-top overflow-hidden">
+      <img
+        *ngFor="let image of poll().poll_option_image_urls"
+        class="w-6 h-auto"
+        src="{{ image }}"
+        alt="2024 US
+Presidential Election"
+      />
+    </div>
+  </ng-template>
+
+  <p class="m-0 h-3rem text-wrap">
+    {{ poll().poll_description }}
+  </p>
+
+  <ng-template pTemplate="footer">
+    <div class="w-full flex gap-3 mb-3">
+      <button
+        pButton
+        pRipple
+        severity="secondary"
+        *ngFor="let button of buttons(); index as i"
+        (click)="handleClick(i)"
+        [outlined]="!button.isSelected"
+        [raised]="button.isSelected"
+        label="{{ button.label }}"
+        class="flex-grow-1"
+      ></button>
+    </div>
+    <div class="w-full flex gap-3">
+      <button
+        [disabled]="optionSelected()"
+        pButton
+        pRipple
+        [severity]="'success'"
+        [raised]="true"
+        label="Vote Now"
+        class="flex-grow-1"
+      ></button>
+    </div>
+  </ng-template>
+</p-card>
