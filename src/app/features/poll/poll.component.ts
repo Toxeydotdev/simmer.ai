@@ -7,6 +7,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MeterGroupModule } from 'primeng/metergroup';
@@ -22,6 +23,7 @@ import { PollWithUserVote, Vote } from '../../services/everyone-votes/poll';
 })
 export class PollComponent implements OnInit {
   poll = model.required<PollWithUserVote>();
+  messageService = inject(MessageService);
   meterValues = signal([
     { label: '', color: '', icon: '', value: 0 },
     { label: '', color: '', icon: '', value: 0 },
@@ -93,6 +95,11 @@ export class PollComponent implements OnInit {
           console.log(data);
           if (error) {
             console.error(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Something went wrong.',
+              detail: 'Your vote was not submitted.',
+            });
             return;
           }
           this.poll.update((poll) => ({
