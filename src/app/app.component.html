@@ -1,21 +1,26 @@
 <div class="flex flex-column">
-  <p-toolbar class="w-full">
+  <p-toolbar
+    class="w-full border-bottom-2 border-green-500"
+    [ngStyle]="{ position: 'sticky', top: '0', 'z-index': '1' }"
+  >
     <div class="p-toolbar-group-start">
-      <span class="text-3xl font-bold text-orange-500">everyone-votes</span>
+      <span class="text-3xl font-bold text-green-500">everyone-votes</span>
     </div>
 
     <div class="p-toolbar-group-end">
-      <div class="text-xl font-bold text-orange-500">Welcome!</div>
-      <p-button
-        *ngIf="loggedIn"
+      <div class="text-xl font-bold text-green-500">Welcome!</div>
+      <button
+        (click)="logout()"
+        pButton
+        [severity]="'success'"
         [outlined]="true"
         [raised]="true"
         [rounded]="true"
         icon="pi pi-sign-in"
-      />
+      ></button>
     </div>
   </p-toolbar>
-  <div class="flex justify-content-center align-items-center m-6">
+  <div class="flex justify-content-center align-items-center m-3 sm:m-6">
     <router-outlet />
   </div>
 </div>

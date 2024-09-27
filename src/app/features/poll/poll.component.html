@@ -1,12 +1,15 @@
-<p-card header="{{ poll().poll_title }}" class="flex flex-grow-1 w-26rem">
+<p-card
+  header="{{ poll().poll_title }}"
+  class="flex flex-grow-1"
+  styleClass=" w-full lg:w-25rem"
+>
   <ng-template pTemplate="header">
     <div class="flex border-round-top overflow-hidden">
       <img
         *ngFor="let image of poll().poll_option_image_urls"
         class="w-6 h-auto"
         src="{{ image }}"
-        alt="2024 US
-Presidential Election"
+        alt="poll option"
       />
     </div>
   </ng-template>
@@ -18,27 +21,41 @@ Presidential Election"
   <ng-template pTemplate="footer">
     <div class="w-full flex gap-3 mb-3">
       <button
+        *ngFor="let button of buttons(); index as i"
         pButton
         pRipple
-        severity="secondary"
-        *ngFor="let button of buttons(); index as i"
-        (click)="handleClick(i)"
+        [severity]="
+          alreadyVoted() && poll().userVote?.option_selected === i
+            ? 'success'
+            : 'secondary'
+        "
+        (click)="handleSelection(i)"
+        [disabled]="alreadyVoted() || processing()"
         [outlined]="!button.isSelected"
         [raised]="button.isSelected"
         label="{{ button.label }}"
         class="flex-grow-1"
       ></button>
     </div>
-    <div class="w-full flex gap-3">
+    <!-- force ui refresh after submitting vote -->
+    <div class="w-full flex gap-3" *ngIf="buttons()">
       <button
-        [disabled]="optionSelected()"
         pButton
         pRipple
+        [disabled]="optionSelected() || alreadyVoted()"
+        (click)="handleSubmit(poll().id)"
+        [loading]="processing()"
         [severity]="'success'"
         [raised]="true"
-        label="Vote Now"
+        label="{{
+          alreadyVoted() ? 'Already Voted' : processing() ? 'Voting' : 'Vote'
+        }}"
         class="flex-grow-1"
       ></button>
+    </div>
+
+    <div class="mt-3" *ngIf="alreadyVoted()">
+      <p-meterGroup [value]="meterValues()" />
     </div>
   </ng-template>
 </p-card>

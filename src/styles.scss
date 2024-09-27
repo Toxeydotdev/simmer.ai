@@ -12,9 +12,6 @@
 html,
 body {
   height: 100%;
-  // background-size: 40px 40px;
-  // background-image: linear-gradient(to right, grey 1px, transparent 1px),
-  //   linear-gradient(to bottom, grey 1px, transparent 1px);
   --grid-size: 30px;
   --grid-strength: 1px;
   --grid-dash: 10px;
@@ -53,4 +50,8 @@ body {
 
 .text-nowrap {
   text-wrap: nowrap;
+}
+
+.p-metergroup-labels {
+  justify-content: space-between;
 }

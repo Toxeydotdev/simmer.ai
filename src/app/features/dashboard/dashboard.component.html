@@ -1,6 +1,11 @@
 <div
-  class="w-full flex justify-content-center gap-8 flex-wrap"
-  *ngIf="polls$ | async as polls"
+  class="w-full flex justify-content-center gap-4 sm:gap-8 flex-wrap"
+  *ngIf="pollsAndVotes$ | async as pollsAndVotes"
 >
-  <app-poll *ngFor="let poll of polls" [poll]="poll" class="flex" />
+  <app-poll
+    *ngFor="let poll of pollsAndVotes"
+    [poll]="poll"
+    class="flex w-full lg:w-auto"
+    style="height: fit-content"
+  />
 </div>

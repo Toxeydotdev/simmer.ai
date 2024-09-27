@@ -1,8 +1,25 @@
 <p-card class="shadow-7">
   <div class="flex flex-column gap-3">
-    <p-button label="Continue with Email"></p-button>
-    <p-button label="Continue with Email" severity="secondary"></p-button>
-    <p-button label="Continue with Email" severity="success"></p-button>
-    <p-button label="Continue with Email" severity="contrast"></p-button>
+    <button
+      pButton
+      icon="pi pi-envelope"
+      label="Continue with Email"
+      severity="success"
+      (click)="login()"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-envelope"
+      label="Continue with Email"
+      severity="secondary"
+    ></button>
+
+    <button
+      pButton
+      icon="pi pi-envelope"
+      label="Continue with Email"
+      severity="contrast"
+    ></button>
   </div>
+  {{ session }}
 </p-card>
