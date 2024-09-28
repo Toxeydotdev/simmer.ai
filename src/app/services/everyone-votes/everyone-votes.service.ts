@@ -18,7 +18,7 @@ export class EveryoneVotesService {
       this.supabaseService.supabaseClient
         .from('poll_votes')
         .select()
-        .eq('user_id', this.authService.user?.id)
+        .eq('user_id', this.authService.user()?.id)
     );
   }
 
@@ -29,7 +29,7 @@ export class EveryoneVotesService {
         .insert([
           {
             poll_id: pollId,
-            user_id: this.authService.user?.id,
+            user_id: this.authService.user()?.id,
             option_selected: optionSelected,
           },
         ])

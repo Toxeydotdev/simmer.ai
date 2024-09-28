@@ -1,4 +1,4 @@
-<p-card class="flex" styleClass="surface-200" header="Welcome back!">
+<p-card class="flex" styleClass="surface-200" header="Sign up to vote!">
   <div class="flex flex-column gap-3">
     <input pInputText placeholder="Email" [(ngModel)]="email" />
     <p-password
@@ -7,37 +7,30 @@
       [feedback]="false"
       [toggleMask]="true"
     />
-    @if (error()) {
-    <small class="flex align-items-center gap-1">
-      <i class="pi pi-exclamation-circle text-red-500"></i>
-      <p class="text-red-500">{{ error() }}</p>
-    </small>
-    }
+    <p-password
+      placeholder="Confirm Password"
+      [(ngModel)]="passwordConfirm"
+      [feedback]="false"
+      [toggleMask]="true"
+    />
   </div>
   <ng-template pTemplate="footer">
     <div class="flex flex-column gap-3">
       <button
         pButton
-        label="Sign In"
+        label="Get Started"
         severity="success"
-        [disabled]="!validEmail()"
+        [disabled]="!validEmail() || !validPassword()"
         [loading]="processing()"
-        (click)="login()"
+        (click)="signUp()"
       ></button>
-      <span
-        class="text-sm text-green-500 text-center hover:underline cursor-pointer"
-        (click)="forgotPassword()"
-      >
-        Forgot Password?
-      </span>
-
       <span class="mt-4 text-sm text-center">
-        Don't have an account?
+        Already have an account?
         <span
           class="text-green-500 text-center hover:underline cursor-pointer"
-          (click)="this.router.navigate(['/sign-up'])"
+          (click)="this.router.navigate(['/login'])"
         >
-          Sign up!
+          Sign in!
         </span></span
       >
     </div>

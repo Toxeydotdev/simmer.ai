@@ -9,10 +9,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { delay, finalize } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-up',
   standalone: true,
   imports: [
     CardModule,
@@ -25,37 +25,31 @@ import { AuthService } from '../../services/auth/auth.service';
     InputIconModule,
     IconFieldModule,
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './sign-up.component.html',
+  styleUrl: './sign-up.component.scss',
 })
-export class LoginComponent {
+export class SignUpComponent {
   authService = inject(AuthService);
   router = inject(Router);
+
   email = signal<string>('');
   validEmail = computed(
     () => this.email().includes('@') && this.email().includes('.')
   );
   password = signal<string>('');
+  passwordConfirm = signal<string>('');
+  validPassword = computed(() => this.password() === this.passwordConfirm());
   processing = signal<boolean>(false);
   error = signal<string>('');
-  login(): void {
+
+  signUp(): void {
     this.processing.update(() => true);
     this.authService
-      .signIn(this.email(), this.password())
-      .pipe(
-        delay(1000),
-        finalize(() => {
-          this.processing.update(() => false);
-        })
-      )
+      .createUser(this.email(), this.password())
       .subscribe(({ data, error }) => {
         if (error) {
           this.error.update(() => error.message);
         }
       });
-  }
-
-  forgotPassword(): void {
-    // this.authService.forgotPassword(this.email());
   }
 }
