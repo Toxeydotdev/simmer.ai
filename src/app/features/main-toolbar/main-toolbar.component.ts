@@ -3,6 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
+import { tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -19,6 +20,13 @@ export class MainToolbarComponent {
   userAuthenticated = computed(() => this.authService.isAuthenticated());
 
   logout(): void {
-    this.authService.signOut().subscribe();
+    this.authService
+      .signOut()
+      .pipe(
+        tap(() => {
+          this.router.navigate(['/login']);
+        })
+      )
+      .subscribe();
   }
 }

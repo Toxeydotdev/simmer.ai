@@ -14,6 +14,9 @@ export class EveryoneVotesService {
   }
 
   getUserVotes() {
+    if (!this.authService.user()?.id) {
+      return from([]);
+    }
     return from(
       this.supabaseService.supabaseClient
         .from('poll_votes')
