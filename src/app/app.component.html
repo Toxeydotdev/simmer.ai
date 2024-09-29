@@ -1,6 +1,13 @@
-<div class="flex flex-column">
-  <app-main-toolbar />
-  <div class="flex justify-content-center align-items-center m-3 sm:m-6">
+<div class="flex flex-column gap-4 sm:gap-2">
+  <app-main-toolbar
+    [style]="{ position: 'sticky', top: '0', 'z-index': '1' }"
+    class="border-bottom-2 border-green-500"
+  />
+  <h2 class="text-center">
+    Unbiased Polls Where <br />
+    <span class="underline text-green-500">Everyone Votes</span>
+  </h2>
+  <div class="flex justify-content-center align-items-center mx-3 sm:mx-6">
     <router-outlet />
   </div>
 </div>

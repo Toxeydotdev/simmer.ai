@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { combineLatest, filter, map, tap } from 'rxjs';
@@ -15,6 +20,7 @@ import { PollComponent } from '../poll/poll.component';
 })
 export class DashboardComponent {
   everyoneVotesService = inject(EveryoneVotesService);
+  processing = signal(false);
 
   polls$ = this.everyoneVotesService.getPolls().pipe(
     map(({ data, error }) => data),

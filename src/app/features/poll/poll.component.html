@@ -1,6 +1,6 @@
 <p-card
   header="{{ poll().poll_title }}"
-  class="flex flex-grow-1"
+  class="flex flex-grow-1 p-0"
   styleClass="w-full lg:w-25rem surface-50"
 >
   <ng-template pTemplate="header">
@@ -14,7 +14,7 @@
     </div>
   </ng-template>
 
-  <p class="m-0 h-3rem text-wrap">
+  <p class="m-0 text-wrap">
     {{ poll().poll_description }}
   </p>
 
