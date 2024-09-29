@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -9,6 +10,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -31,6 +33,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class SignUpComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  messageService = inject(MessageService);
 
   email = signal<string>('');
   validEmail = computed(
@@ -46,10 +49,20 @@ export class SignUpComponent {
     this.processing.update(() => true);
     this.authService
       .createUser(this.email(), this.password())
-      .subscribe(({ data, error }) => {
-        if (error) {
-          this.error.update(() => error.message);
-        }
-      });
+      .pipe(
+        tap(({ data, error }) => {
+          if (error) {
+            this.error.update(() => error.message);
+          } else if (data) {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Confirm your email',
+              detail: 'Check your email to confirm your account.',
+            });
+            this.router.navigate(['/login']);
+          }
+        })
+      )
+      .subscribe();
   }
 }
