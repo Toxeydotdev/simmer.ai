@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
-import { delay, finalize, tap } from 'rxjs';
+import { finalize, tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -30,7 +30,6 @@ export class ForgotPasswordComponent {
     this.authService
       .resetPasswordForEmail(this.email())
       .pipe(
-        delay(1000),
         tap(({ data, error }) => {
           if (data) {
             this.messageService.add({

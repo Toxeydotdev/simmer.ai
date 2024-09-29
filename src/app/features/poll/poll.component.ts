@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { MeterGroupModule } from 'primeng/metergroup';
-import { delay, finalize, map, tap } from 'rxjs';
+import { finalize, map, tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 import { EveryoneVotesService } from '../../services/everyone-votes/everyone-votes.service';
 import { PollWithUserVote, Vote } from '../../services/everyone-votes/poll';
@@ -100,7 +100,6 @@ export class PollComponent implements OnInit {
       .submitVote(pollId, selectedOption)
       .pipe(
         tap(() => this.processing.update(() => true)),
-        delay(1000),
         map(({ data, error }) => {
           if (error) {
             console.error(error);
