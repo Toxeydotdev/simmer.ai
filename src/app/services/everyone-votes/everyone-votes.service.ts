@@ -33,8 +33,12 @@ export class EveryoneVotesService {
             option_selected: optionSelected,
           },
         ])
-        .select()
+        .select(
+          `
+          poll_id,
+          option_selected
+        `
+        )
     );
-    // return { data, error };
   }
 }

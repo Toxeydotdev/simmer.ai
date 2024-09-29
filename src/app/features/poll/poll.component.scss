@@ -1,3 +1,14 @@
 img {
   object-fit: cover;
 }
+.slidedown-animation {
+  animation: slidedown 2s ease-in-out;
+}
+@keyframes slidedown {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 1000px;
+  }
+}

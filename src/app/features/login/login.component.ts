@@ -5,11 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { delay, finalize } from 'rxjs';
+import { delay, finalize, tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 @Component({
   selector: 'app-login',
@@ -18,7 +17,6 @@ import { AuthService } from '../../services/auth/auth.service';
     CardModule,
     ButtonModule,
     InputGroupModule,
-    InputGroupAddonModule,
     InputTextModule,
     PasswordModule,
     FormsModule,
@@ -44,18 +42,15 @@ export class LoginComponent {
       .signIn(this.email(), this.password())
       .pipe(
         delay(1000),
+        tap(({ data, error }) => {
+          if (error) {
+            this.error.update(() => error.message);
+          }
+        }),
         finalize(() => {
           this.processing.update(() => false);
         })
       )
-      .subscribe(({ data, error }) => {
-        if (error) {
-          this.error.update(() => error.message);
-        }
-      });
-  }
-
-  forgotPassword(): void {
-    // this.authService.forgotPassword(this.email());
+      .subscribe();
   }
 }

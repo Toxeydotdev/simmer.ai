@@ -26,7 +26,7 @@
       ></button>
       <span
         class="text-sm text-green-500 text-center hover:underline cursor-pointer"
-        (click)="forgotPassword()"
+        (click)="this.router.navigate(['/forgot-password'])"
       >
         Forgot Password?
       </span>
@@ -38,8 +38,8 @@
           (click)="this.router.navigate(['/sign-up'])"
         >
           Sign up!
-        </span></span
-      >
+        </span>
+      </span>
     </div>
   </ng-template>
 </p-card>

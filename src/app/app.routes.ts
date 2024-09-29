@@ -21,6 +21,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./features/forgot-password/forgot-password.component').then(
+        (m) => m.ForgotPasswordComponent
+      ),
+  },
+  {
     path: 'dashboard',
     loadComponent: () =>
       import('./features/dashboard/dashboard.component').then(

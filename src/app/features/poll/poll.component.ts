@@ -10,6 +10,7 @@ import {
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { delay, finalize, map, tap } from 'rxjs';
 import { EveryoneVotesService } from '../../services/everyone-votes/everyone-votes.service';
@@ -17,7 +18,13 @@ import { PollWithUserVote, Vote } from '../../services/everyone-votes/poll';
 @Component({
   selector: 'app-poll',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, MeterGroupModule],
+  imports: [
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    MeterGroupModule,
+    DividerModule,
+  ],
   templateUrl: './poll.component.html',
   styleUrl: './poll.component.scss',
 })
@@ -101,18 +108,27 @@ export class PollComponent implements OnInit {
               detail: 'Your vote was not submitted.',
             });
             return;
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: `Vote submitted for ${this.poll().poll_title}.`,
+              detail: 'Your vote has been submitted.',
+            });
+            this.poll.update((poll) => ({
+              ...poll,
+              poll_votes_total: poll.poll_votes_total + 1,
+              poll_option_votes: poll.poll_option_votes.map((votes, index) => {
+                return index === selectedOption ? votes + 1 : votes;
+              }),
+              userVote: data[0] as Vote,
+            }));
+            this.updateMeterValues();
           }
-          this.poll.update((poll) => ({
-            ...poll,
-            userVote: data[0] as Vote,
-          }));
 
           // force ui refresh of buttons
           this.buttons.update(() => {
             return this.buttons().map((button) => ({ ...button }));
           });
-
-          this.updateMeterValues();
         }),
         finalize(() => this.processing.update(() => false))
       )

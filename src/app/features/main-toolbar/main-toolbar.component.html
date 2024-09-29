@@ -3,21 +3,21 @@
   [ngStyle]="{ position: 'sticky', top: '0', 'z-index': '1' }"
 >
   <div class="p-toolbar-group-start">
-    <span class="text-3xl font-bold text-green-500">E1Votes</span>
+    <span class="text-xl font-bold text-green-500">E1Votes</span>
   </div>
 
   <div class="p-toolbar-group-end gap-3">
     @if (userAuthenticated()) {
     <button
       pButton
+      label="Logout"
       [severity]="'success'"
-      [outlined]="true"
       [raised]="true"
       [rounded]="true"
       icon="pi pi-sign-out"
+      size="small"
       (click)="logout()"
     ></button>
-    <div class="text-xl font-bold text-green-500">Welcome!</div>
     }
   </div>
 </p-toolbar>

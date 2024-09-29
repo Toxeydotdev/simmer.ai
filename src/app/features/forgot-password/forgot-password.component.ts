@@ -4,60 +4,45 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { PasswordModule } from 'primeng/password';
 import { delay, finalize, tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
-  selector: 'app-reset-password',
+  selector: 'app-forgot-password',
   standalone: true,
-  imports: [
-    CardModule,
-    ButtonModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputTextModule,
-    PasswordModule,
-    FormsModule,
-    InputIconModule,
-    IconFieldModule,
-  ],
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.scss',
+  imports: [CardModule, ButtonModule, InputTextModule, FormsModule],
+  templateUrl: './forgot-password.component.html',
+  styleUrl: './forgot-password.component.scss',
 })
-export class ResetPasswordComponent {
+export class ForgotPasswordComponent {
   authService = inject(AuthService);
   messageService = inject(MessageService);
   router = inject(Router);
-
-  password = signal<string>('');
-  passwordConfirm = signal<string>('');
-  validPassword = computed(() => this.password() === this.passwordConfirm());
+  email = signal<string>('');
+  validEmail = computed(
+    () => this.email().includes('@') && this.email().includes('.')
+  );
   processing = signal<boolean>(false);
   error = signal<string>('');
-
-  resetPassword(): void {
+  resetPasswordForEmail(): void {
     this.processing.update(() => true);
     this.authService
-      .resetPassword(this.password())
+      .resetPasswordForEmail(this.email())
       .pipe(
         delay(1000),
         tap(({ data, error }) => {
           console.log(data, error);
-          if (error) {
-            this.error.update(() => error.message);
-          } else if (data) {
+          if (data) {
             this.messageService.add({
               severity: 'success',
               summary: 'Password reset',
-              detail: 'Your password has been reset.',
+              detail: 'Check your email for a password reset link.',
             });
             this.router.navigate(['/login']);
+          }
+          if (error) {
+            this.error.update(() => error.message);
           }
         }),
         finalize(() => {
