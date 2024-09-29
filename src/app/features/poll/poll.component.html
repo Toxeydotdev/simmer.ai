@@ -30,7 +30,7 @@
             : 'secondary'
         "
         (click)="handleSelection(i)"
-        [disabled]="alreadyVoted() || processing()"
+        [disabled]="alreadyVoted() || processing() || !userAuthenticated()"
         [outlined]="!button.isSelected"
         [raised]="button.isSelected"
         label="{{ button.label }}"
@@ -45,10 +45,17 @@
         [disabled]="optionSelected() || alreadyVoted()"
         (click)="handleSubmit(poll().id)"
         [loading]="processing()"
-        [severity]="'success'"
+        [severity]="!userAuthenticated() ? 'secondary' : 'success'"
         [raised]="true"
+        [icon]="!userAuthenticated() ? 'pi pi-lock' : ''"
         label="{{
-          alreadyVoted() ? 'Already Voted' : processing() ? 'Voting' : 'Vote'
+          !userAuthenticated()
+            ? 'Login to Vote'
+            : alreadyVoted()
+            ? 'Already Voted'
+            : processing()
+            ? 'Voting'
+            : 'Vote'
         }}"
         class="flex-grow-1"
       ></button>

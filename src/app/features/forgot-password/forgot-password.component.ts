@@ -32,7 +32,6 @@ export class ForgotPasswordComponent {
       .pipe(
         delay(1000),
         tap(({ data, error }) => {
-          console.log(data, error);
           if (data) {
             this.messageService.add({
               severity: 'success',

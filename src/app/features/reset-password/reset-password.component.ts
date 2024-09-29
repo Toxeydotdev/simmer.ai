@@ -48,7 +48,6 @@ export class ResetPasswordComponent {
       .pipe(
         delay(1000),
         tap(({ data, error }) => {
-          console.log(data, error);
           if (error) {
             this.error.update(() => error.message);
           } else if (data) {

@@ -13,8 +13,10 @@ import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { delay, finalize, map, tap } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 import { EveryoneVotesService } from '../../services/everyone-votes/everyone-votes.service';
 import { PollWithUserVote, Vote } from '../../services/everyone-votes/poll';
+
 @Component({
   selector: 'app-poll',
   standalone: true,
@@ -31,6 +33,9 @@ import { PollWithUserVote, Vote } from '../../services/everyone-votes/poll';
 export class PollComponent implements OnInit {
   poll = model.required<PollWithUserVote>();
   messageService = inject(MessageService);
+  authService = inject(AuthService);
+
+  userAuthenticated = computed(() => this.authService.isAuthenticated());
   meterValues = signal([
     { label: '', color: '', icon: '', value: 0 },
     { label: '', color: '', icon: '', value: 0 },
@@ -91,15 +96,12 @@ export class PollComponent implements OnInit {
       (button) => button.isSelected
     );
 
-    console.log(`Poll ID: ${pollId}, Selected Option: ${selectedOption}`);
-
     this.everyoneVotesService
       .submitVote(pollId, selectedOption)
       .pipe(
         tap(() => this.processing.update(() => true)),
         delay(1000),
         map(({ data, error }) => {
-          console.log(data);
           if (error) {
             console.error(error);
             this.messageService.add({

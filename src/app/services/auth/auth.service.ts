@@ -6,7 +6,7 @@ import {
   Session,
   User,
 } from '@supabase/supabase-js';
-import { from } from 'rxjs';
+import { combineLatest, from } from 'rxjs';
 import { SupabaseService } from '../supabase/supabase.service';
 
 @Injectable({
@@ -38,7 +38,6 @@ export class AuthService {
           this.router.navigate(['/login']);
           break;
         case 'PASSWORD_RECOVERY':
-          console.log('PASSWORD_RECOVERY');
           this.router.navigate(['/reset-password']);
           break;
         case 'TOKEN_REFRESHED':
@@ -98,6 +97,15 @@ export class AuthService {
   }
 
   signOut() {
-    return from(this.supabaseService.supabaseClient.auth.signOut());
+    return from(
+      combineLatest([
+        this.supabaseService.supabaseClient.auth.signOut(),
+        this.supabaseService.supabaseClient.auth.updateUser({
+          data: {
+            session: null,
+          },
+        }),
+      ])
+    );
   }
 }

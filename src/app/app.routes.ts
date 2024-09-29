@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -29,15 +28,14 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'dashboard',
+    path: '',
     loadComponent: () =>
       import('./features/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
-    canActivate: [AuthGuard],
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: '',
   },
 ];
