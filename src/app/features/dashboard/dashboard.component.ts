@@ -31,7 +31,7 @@ export class DashboardComponent {
     .pipe(map(({ data, error }) => data));
 
   pollsAndVotes$ = combineLatest([this.polls$, this.userVotes$]).pipe(
-    filter(([polls, votes]) => polls !== null),
+    filter(([polls]) => polls !== null),
     map(([polls, votes]) => {
       if (!votes) return polls;
       return polls?.map((poll) => {
