@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {
   AuthChangeEvent,
   AuthSession,
+  Provider,
   Session,
   User,
 } from '@supabase/supabase-js';
@@ -83,6 +84,13 @@ export class AuthService {
     );
   }
 
+  signInWithOAuth(provider: Provider) {
+    return from(
+      this.supabaseService.supabaseClient.auth.signInWithOAuth({
+        provider,
+      })
+    );
+  }
   resetPassword(password: string) {
     return from(
       this.supabaseService.supabaseClient.auth.updateUser({

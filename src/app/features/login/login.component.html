@@ -18,11 +18,29 @@
     <div class="flex flex-column gap-3">
       <button
         pButton
-        label="Sign In"
+        icon="pi pi-envelope"
+        label="Sign In with Email"
         severity="success"
         [disabled]="!validEmail()"
         [loading]="processing()"
         (click)="login()"
+      ></button>
+
+      <button
+        pButton
+        label="Sign In with Discord"
+        icon="pi pi-discord"
+        style="background: #7289da"
+        [loading]="processing()"
+        (click)="loginWithOAuth('discord')"
+      ></button>
+      <button
+        pButton
+        label="Sign In with GitHub"
+        icon="pi pi-github"
+        style="background: #333"
+        [loading]="processing()"
+        (click)="loginWithOAuth('github')"
       ></button>
       <span
         class="text-sm text-green-500 text-center hover:underline cursor-pointer"
@@ -31,7 +49,7 @@
         Forgot Password?
       </span>
 
-      <span class="mt-4 text-sm text-center">
+      <span class="text-sm text-center">
         Don't have an account?
         <span
           class="text-green-500 text-center hover:underline cursor-pointer"
