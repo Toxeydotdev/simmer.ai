@@ -10,7 +10,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { finalize, tap } from 'rxjs';
+import { delay, finalize, tap } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -46,6 +46,7 @@ export class ResetPasswordComponent {
     this.authService
       .resetPassword(this.password())
       .pipe(
+        delay(500),
         tap(({ data, error }) => {
           if (error) {
             this.error.update(() => error.message);
