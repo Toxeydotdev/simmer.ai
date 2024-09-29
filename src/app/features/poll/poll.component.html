@@ -1,20 +1,21 @@
 <p-card
   header="{{ poll().poll_title }}"
   class="flex flex-grow-1 p-0"
-  styleClass="w-full lg:w-25rem surface-50"
+  styleClass="w-full lg:w-26rem surface-50 border-round border-2 border-green-500
+  {{ alreadyVoted() ? 'border-green-500' : 'border-gray-500' }}"
 >
   <ng-template pTemplate="header">
     <div class="flex border-round-top overflow-hidden">
       <img
         *ngFor="let image of poll().poll_option_image_urls"
-        class="w-6 h-auto"
+        class="w-6 h-14rem"
         src="{{ image }}"
         alt="poll option"
       />
     </div>
   </ng-template>
 
-  <p class="m-0 text-wrap">
+  <p class="m-0 h-2rem text-wrap">
     {{ poll().poll_description }}
   </p>
 

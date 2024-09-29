@@ -28,7 +28,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: '',
+    path: 'polls',
     loadComponent: () =>
       import('./features/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
@@ -36,6 +36,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'polls',
   },
 ];
