@@ -1,11 +1,11 @@
-<div
-  class="w-full flex justify-content-center gap-4 sm:gap-8 flex-wrap"
-  *ngIf="pollsAndVotes$ | async as pollsAndVotes"
->
+@if(pollsAndVotes$ | async; as pollsAndVotes) {
+<div class="w-full flex justify-content-center gap-4 sm:gap-8 flex-wrap">
+  @for (poll of pollsAndVotes; track $index) {
   <app-poll
-    *ngFor="let poll of pollsAndVotes"
     [poll]="poll"
     class="flex w-full sm:w-7 lg:w-auto"
     style="height: fit-content"
   />
+  }
 </div>
+}
