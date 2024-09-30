@@ -29,4 +29,8 @@ export class MainToolbarComponent {
       )
       .subscribe();
   }
+
+  openTab(url: string): void {
+    window.open(url, '_blank');
+  }
 }
