@@ -3,7 +3,7 @@
   styleClass="surface-200"
   header="Welcome back!"
 >
-  <div class="flex flex-column gap-3">
+  <div class="flex flex-column gap-3 mb-3">
     <input pInputText placeholder="Email" [(ngModel)]="email" />
     <p-password
       placeholder="Password"
@@ -17,35 +17,39 @@
       <p class="text-red-500">{{ error() }}</p>
     </small>
     }
+    <button
+      pButton
+      icon="pi pi-envelope"
+      label="Sign In with Email"
+      severity="success"
+      [disabled]="!validEmail()"
+      [loading]="processing()"
+      (click)="login()"
+    ></button>
   </div>
-  <ng-template pTemplate="footer">
-    <div class="flex flex-column gap-3">
-      <button
-        pButton
-        icon="pi pi-envelope"
-        label="Sign In with Email"
-        severity="success"
-        [disabled]="!validEmail()"
-        [loading]="processing()"
-        (click)="login()"
-      ></button>
 
-      <button
-        pButton
-        label="Sign In with Discord"
-        icon="pi pi-discord"
-        style="background: #7289da"
-        [loading]="processing()"
-        (click)="loginWithOAuth('discord')"
-      ></button>
-      <button
-        pButton
-        label="Sign In with GitHub"
-        icon="pi pi-github"
-        style="background: #333"
-        [loading]="processing()"
-        (click)="loginWithOAuth('github')"
-      ></button>
+  <div class="text-center line-behind text-sm mb-3">Or Login with</div>
+  <div class="flex flex gap-3">
+    <button
+      pButton
+      icon="pi pi-discord"
+      style="background: #7289da"
+      class="flex-1"
+      [loading]="processing()"
+      (click)="loginWithOAuth('discord')"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-github"
+      style="background: #333"
+      class="flex-1"
+      [loading]="processing()"
+      (click)="loginWithOAuth('github')"
+    ></button>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex flex-column gap-2">
       <span
         class="text-sm text-green-500 text-center hover:underline cursor-pointer"
         (click)="this.router.navigate(['/forgot-password'])"

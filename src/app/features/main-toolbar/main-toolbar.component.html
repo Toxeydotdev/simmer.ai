@@ -6,18 +6,16 @@
   <div class="p-toolbar-group-end gap-3">
     <button
       pButton
-      label="Polls"
       [severity]="'success'"
       [raised]="true"
       [rounded]="true"
-      icon="pi pi-home"
+      icon="pi pi-crown"
       size="small"
       (click)="this.router.navigate(['/'])"
     ></button>
     @if (userAuthenticated()) {
     <button
       pButton
-      label="Logout"
       [severity]="'success'"
       [raised]="true"
       [rounded]="true"
@@ -28,7 +26,6 @@
     } @else {
     <button
       pButton
-      label="Login"
       [severity]="'success'"
       [raised]="true"
       [rounded]="true"

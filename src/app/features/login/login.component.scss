@@ -1,0 +1,17 @@
+.line-behind {
+  display: flex;
+  flex-direction: row;
+}
+.line-behind:before,
+.line-behind:after {
+  content: "";
+  flex: 1 1;
+  border-bottom: 1px solid;
+  margin: auto;
+}
+.line-behind:before {
+  margin-right: 10px;
+}
+.line-behind:after {
+  margin-left: 10px;
+}
