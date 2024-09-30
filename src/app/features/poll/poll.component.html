@@ -18,23 +18,22 @@
 
   <ng-template pTemplate="footer">
     <div class="w-full flex gap-3 mb-3">
-      @for (button of buttons(); track $index) {
       <button
+        *ngFor="let button of buttons(); let i = index"
         pButton
         pRipple
         [severity]="
-          alreadyVoted() && poll().userVote?.option_selected === $index
+          alreadyVoted() && poll().userVote?.option_selected === i
             ? 'success'
             : 'secondary'
         "
-        (click)="handleSelection($index)"
+        (click)="handleSelection(i)"
         [disabled]="alreadyVoted() || processing() || !userAuthenticated()"
         [outlined]="!button.isSelected"
         [raised]="button.isSelected"
         label="{{ button.label }}"
         class="flex-grow-1"
       ></button>
-      }
     </div>
     <!-- force ui refresh after submitting vote -->
     @if(buttons()){
