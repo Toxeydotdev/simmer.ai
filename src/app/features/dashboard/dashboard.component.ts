@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-
+import { GenericService } from '../../services/generic/generic.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -11,4 +11,11 @@ import { CardModule } from 'primeng/card';
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  genericService = inject(GenericService);
+  buttonClicked(): void {
+    this.genericService.getHelloWorld().subscribe((response) => {
+      console.log(response);
+    });
+  }
+}
