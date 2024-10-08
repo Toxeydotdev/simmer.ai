@@ -12,4 +12,13 @@ export class GenericService {
   getHelloWorld() {
     return from(this.http.get('/.netlify/functions/hello-world'));
   }
+
+  getHtmlString() {
+    return from(
+      this.http.post('/.netlify/functions/get-html-string', {
+        value:
+          'https://www.thechunkychef.com/family-favorite-baked-mac-and-cheese/',
+      })
+    );
+  }
 }

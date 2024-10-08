@@ -3,8 +3,6 @@ import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
-import { tap } from 'rxjs';
-import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-main-toolbar',
@@ -14,21 +12,11 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrl: './main-toolbar.component.scss',
 })
 export class MainToolbarComponent {
-  authService = inject(AuthService);
   router = inject(Router);
 
-  userAuthenticated = computed(() => this.authService.isAuthenticated());
+  userAuthenticated = computed(() => true);
 
-  logout(): void {
-    this.authService
-      .signOut()
-      .pipe(
-        tap(() => {
-          this.router.navigate(['/login']);
-        })
-      )
-      .subscribe();
-  }
+  logout(): void {}
 
   openTab(url: string): void {
     window.open(url, '_blank');
