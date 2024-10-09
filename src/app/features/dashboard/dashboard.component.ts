@@ -50,13 +50,11 @@ export class DashboardComponent {
   getArticle(): void {
     this.processing.update(() => true);
     this.genericService
-      .getHtmlString(this.inputUrl)
+      .getRecipeFromUrl(this.inputUrl)
       .pipe(
         tap({
           next: (response: { urlInput?: string; recipe?: string }) => {
-            this.content.update(
-              () => response.recipe || 'No content found for this URL'
-            );
+            this.content.update(() => response.recipe || 'No content found');
           },
           error: () =>
             this.messageService.add({

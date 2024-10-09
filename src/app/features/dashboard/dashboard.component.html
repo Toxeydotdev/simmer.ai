@@ -2,7 +2,13 @@
   <p-inputGroup
     class="w-auto sm:w-30rem justify-content-center align-self-center"
   >
-    <input type="text" [(ngModel)]="inputUrl" pInputText placeholder="URL" />
+    <input
+      type="text"
+      [(ngModel)]="inputUrl"
+      pInputText
+      placeholder="URL or Food item"
+      (keyup.enter)="getArticle()"
+    />
     <button
       type="button"
       pButton

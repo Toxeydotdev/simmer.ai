@@ -8,7 +8,7 @@ import { from } from 'rxjs';
 export class GenericService {
   http = inject(HttpClient);
 
-  getHtmlString(url: string) {
-    return from(this.http.post('/.netlify/functions/get-recipe', { url }));
+  getRecipeFromUrl(data: string) {
+    return from(this.http.post('/.netlify/functions/get-recipe', { data }));
   }
 }
