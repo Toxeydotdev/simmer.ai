@@ -13,35 +13,35 @@ html,
 body {
   height: 100%;
   margin: 0;
-  --grid-size: 40px;
-  --grid-strength: 1px;
-  --grid-dash: 10px;
-  --grid-gap: 5px;
-  --grid-color: #ddd;
-  --paper-color: #ffffff;
-  background-color: var(--paper-color);
-  background-size: var(--grid-dash) var(--grid-dash),
-    var(--grid-size) var(--grid-size);
-  background-image: linear-gradient(
-      to bottom,
-      transparent var(--grid-gap),
-      var(--paper-color) var(--grid-gap)
-    ),
-    linear-gradient(
-      to right,
-      var(--grid-color) var(--grid-strength),
-      transparent var(--grid-strength)
-    ),
-    linear-gradient(
-      to right,
-      transparent var(--grid-gap),
-      var(--paper-color) var(--grid-gap)
-    ),
-    linear-gradient(
-      to bottom,
-      var(--grid-color) var(--grid-strength),
-      transparent var(--grid-strength)
-    );
+  // --grid-size: 40px;
+  // --grid-strength: 1px;
+  // --grid-dash: 10px;
+  // --grid-gap: 5px;
+  // --grid-color: #ddd;
+  // --paper-color: #ffffff;
+  // background-color: var(--paper-color);
+  // background-size: var(--grid-dash) var(--grid-dash),
+  //   var(--grid-size) var(--grid-size);
+  // background-image: linear-gradient(
+  //     to bottom,
+  //     transparent var(--grid-gap),
+  //     var(--paper-color) var(--grid-gap)
+  //   ),
+  //   linear-gradient(
+  //     to right,
+  //     var(--grid-color) var(--grid-strength),
+  //     transparent var(--grid-strength)
+  //   ),
+  //   linear-gradient(
+  //     to right,
+  //     transparent var(--grid-gap),
+  //     var(--paper-color) var(--grid-gap)
+  //   ),
+  //   linear-gradient(
+  //     to bottom,
+  //     var(--grid-color) var(--grid-strength),
+  //     transparent var(--grid-strength)
+  //   );
 }
 
 .text-nowrap {
