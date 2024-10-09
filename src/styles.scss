@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "primeng/resources/themes/lara-light-purple/theme.css";
+@import "primeng/resources/themes/lara-light-teal/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -12,6 +12,7 @@
 html,
 body {
   height: 100%;
+  margin: 0;
   --grid-size: 40px;
   --grid-strength: 1px;
   --grid-dash: 10px;
@@ -41,10 +42,6 @@ body {
       var(--grid-color) var(--grid-strength),
       transparent var(--grid-strength)
     );
-}
-body {
-  margin: 0;
-  font-family: var(--font-family);
 }
 
 .text-nowrap {
