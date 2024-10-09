@@ -22,7 +22,6 @@ export class SocialsComponent {
     },
   ];
   openTab(url: string): void {
-    console.log(url);
     window.open(url, '_blank');
   }
 }
