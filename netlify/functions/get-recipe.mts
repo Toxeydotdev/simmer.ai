@@ -12,12 +12,13 @@ exports.handler = async (event: { body: string }, context: any) => {
   });
   let reader: string | undefined;
 
-  // get HTML string from fetch of URL
   if (isValidHttpUrl(urlInput)) {
+    // get HTML string from fetch of URL
     const response = await fetch(urlInput, {
       method: "GET",
     });
     const data = await response.text();
+
     // JSDOM window to sanitize HTML string
     const window = new JSDOM("").window;
     const purify = DOMPurify(window);
@@ -33,7 +34,7 @@ exports.handler = async (event: { body: string }, context: any) => {
     messages: [
       {
         role: "user",
-        content: `Give me an ingredient list with alternatives, easy to follow recipe instructions, and include a title of the dish at the start of your response from the following text only if it contains food or cooking related items, otherwise provide me an error: ${
+        content: `Give me an ingredient list, possible ingredient alternatives, easy to follow recipe instructions, helpful cooking tips, and include a title of the dish at the start of your response from the following text only if it contains food or cooking related items, otherwise provide me an error: ${
           reader ? reader : urlInput
         }`,
       },
@@ -44,6 +45,7 @@ exports.handler = async (event: { body: string }, context: any) => {
     body: JSON.stringify({
       urlInput,
       recipe: completion.choices[0].message.content,
+      completion,
     }),
   };
 };
