@@ -1,0 +1,13 @@
+<div class="flex gap-3">
+  @for (social of socials; track $index) {
+  <button
+    pButton
+    [raised]="true"
+    [rounded]="true"
+    [outlined]="true"
+    icon="{{ social.icon }}"
+    size="small"
+    (click)="openTab(social.url)"
+  ></button>
+  }
+</div>

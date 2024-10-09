@@ -1,18 +1,35 @@
-<div class="w-full flex justify-content-center gap-4 sm:gap-8 flex-wrap">
-  <p-card
-    class="flex text-center w-full"
-    styleClass="surface-200"
-    header="Generic Card Header"
+<div class="flex flex-column justify-content-center gap-4 sm:gap-8">
+  <p-inputGroup
+    class="w-auto sm:w-30rem justify-content-center align-self-center"
   >
-    <div class="flex flex-column gap-3 mb-3">
-      <p>Generic card content goes here. You can add any elements you need.</p>
-    </div>
-    <button (click)="buttonClicked()" pButton>click me</button>
-    <button (click)="getArticle()" pButton>get article</button>
-    <ng-template pTemplate="footer">
-      <div class="flex flex-column gap-2">
-        <span class="text-sm text-center"> Generic footer content. </span>
-      </div>
-    </ng-template>
+    <input type="text" [(ngModel)]="inputUrl" pInputText placeholder="URL" />
+    <button
+      type="button"
+      pButton
+      label="Get Recipe"
+      (click)="getArticle()"
+      [loading]="processing()"
+    ></button>
+  </p-inputGroup>
+
+  @if (!processing() && content().length > 0) {
+  <p-card class="flex w-auto border-round border-2 surface-border">
+    <div class="text-left" markdown [data]="content()"></div>
   </p-card>
+  } @else if (processing()){
+  <div class="w-auto border-round border-2 surface-border p-4 surface-card">
+    <div class="flex mb-3">
+      <div>
+        <p-skeleton width="10rem" styleClass="mb-2" />
+        <p-skeleton width="5rem" styleClass="mb-2" />
+        <p-skeleton width="5rem" styleClass="mb-2" />
+      </div>
+    </div>
+    @for(i of [1,2,3]; track $index) {
+    <p-skeleton width="20%" styleClass="mb-2" />
+    <p-skeleton width="90%" styleClass="mb-2 ml-3" />
+    <p-skeleton width="90%" styleClass="mb-2 ml-3" />
+    }
+  </div>
+  }
 </div>

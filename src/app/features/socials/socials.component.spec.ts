@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainToolbarComponent } from './main-toolbar.component';
+import { SocialsComponent } from './socials.component';
 
-describe('MainToolbarComponent', () => {
-  let component: MainToolbarComponent;
-  let fixture: ComponentFixture<MainToolbarComponent>;
+describe('SocialsComponent', () => {
+  let component: SocialsComponent;
+  let fixture: ComponentFixture<SocialsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainToolbarComponent]
+      imports: [SocialsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MainToolbarComponent);
+    fixture = TestBed.createComponent(SocialsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

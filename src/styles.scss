@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/lara-light-purple/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -12,13 +12,12 @@
 html,
 body {
   height: 100%;
-  --grid-size: 30px;
+  --grid-size: 40px;
   --grid-strength: 1px;
   --grid-dash: 10px;
   --grid-gap: 5px;
   --grid-color: #ddd;
   --paper-color: #ffffff;
-
   background-color: var(--paper-color);
   background-size: var(--grid-dash) var(--grid-dash),
     var(--grid-size) var(--grid-size);
@@ -52,6 +51,6 @@ body {
   text-wrap: nowrap;
 }
 
-.p-metergroup-labels {
-  justify-content: space-between;
+.p-card .p-card-content {
+  padding: 0;
 }

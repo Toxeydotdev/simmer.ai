@@ -1,6 +1,6 @@
-# replace-name
+# without the story
 
-Generic starter template for my projects
+Tool that uses AI to get recipes and instructions without reading through noise.
 
 ## .env
 
@@ -8,9 +8,7 @@ example env file provided
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
---use `netlify dev` instead
+`netlify dev`
 
 ## Build
 
