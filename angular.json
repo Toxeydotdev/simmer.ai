@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "replace-name": {
+    "without-the-story": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@ngx-env/builder:application",
           "options": {
-            "outputPath": "dist/replace-name",
+            "outputPath": "dist/without-the-story",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -63,10 +63,10 @@
           "builder": "@ngx-env/builder:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "replace-name:build:production"
+              "buildTarget": "without-the-story:build:production"
             },
             "development": {
-              "buildTarget": "replace-name:build:development"
+              "buildTarget": "without-the-story:build:development"
             }
           },
           "defaultConfiguration": "development"
