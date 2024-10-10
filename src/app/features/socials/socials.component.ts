@@ -11,13 +11,8 @@ import { ButtonModule } from 'primeng/button';
 export class SocialsComponent {
   socials = [
     {
-      name: 'Twitter',
-      icon: 'pi pi-twitter',
-      url: 'https://x.com/Toxeydotdev',
-    },
-    {
-      name: 'Buy Me a Coffee',
-      icon: 'pi pi-wallet',
+      name: 'Support Me',
+      icon: 'pi pi-thumbs-up-fill',
       url: 'https://buymeacoffee.com/toxey',
     },
   ];
