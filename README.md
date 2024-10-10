@@ -2,6 +2,8 @@
 
 Tool that uses AI to get recipes and instructions without reading through noise.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/68a308c0-209b-4e24-8c5b-2ae0b216925a/deploy-status)](https://app.netlify.com/sites/withoutthestory/deploys)
+
 ## .env
 
 example env file provided
