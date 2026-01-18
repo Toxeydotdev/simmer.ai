@@ -1,26 +1,26 @@
-import { Readability } from "@mozilla/readability";
-import DOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
-import OpenAI from "openai";
+import { Readability } from '@mozilla/readability';
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
+import OpenAI from 'openai';
 
-exports.handler = async (event: { body: string }, context: any) => {
+export const handler = async (event: { body: string }, context: any) => {
   let body = JSON.parse(event.body);
   const urlInput = body.data;
 
   const openai = new OpenAI({
-    apiKey: process.env["OPENAI_API_KEY"],
+    apiKey: process.env['OPENAI_API_KEY'],
   });
   let reader: string | undefined;
 
   if (isValidHttpUrl(urlInput)) {
     // get HTML string from fetch of URL
     const response = await fetch(urlInput, {
-      method: "GET",
+      method: 'GET',
     });
     const data = await response.text();
 
     // JSDOM window to sanitize HTML string
-    const window = new JSDOM("").window;
+    const window = new JSDOM('').window;
     const purify = DOMPurify(window);
     const clean = purify.sanitize(data);
 
@@ -30,10 +30,10 @@ exports.handler = async (event: { body: string }, context: any) => {
   }
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: 'gpt-4o-mini',
     messages: [
       {
-        role: "user",
+        role: 'user',
         content: `Give me an ingredient list, possible ingredient alternatives, easy to follow recipe instructions, helpful cooking tips, and include a title of the dish at the start of your response from the following text only if it contains food or cooking related items, otherwise provide me an error: ${
           reader ? reader : urlInput
         }`,
@@ -59,5 +59,5 @@ function isValidHttpUrl(inputUrl: string) {
     return false;
   }
 
-  return url.protocol === "http:" || url.protocol === "https:";
+  return url.protocol === 'http:' || url.protocol === 'https:';
 }

@@ -1,6 +1,10 @@
-import { useState } from 'react';
-import DOMPurify from 'dompurify';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { fetchRecipe } from '@simmer/shared/utils';
+import DOMPurify from 'dompurify';
+import { useState } from 'react';
+import Socials from './Socials';
 
 export default function Dashboard() {
   const [inputUrl, setInputUrl] = useState('');
@@ -15,13 +19,13 @@ export default function Dashboard() {
     setError(null);
 
     const result = await fetchRecipe(inputUrl);
-    
+
     if (result.error) {
       setError(result.error);
     } else if (result.recipe) {
       setContent(result.recipe);
     }
-    
+
     setProcessing(false);
   };
 
@@ -38,65 +42,74 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen py-8 px-4">
-      <div className="w-full max-w-4xl space-y-6">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          Simmer.AI
-        </h1>
-        <p className="text-center text-gray-600 mb-8">
-          Get recipes and instructions without reading through noise
+    <div className="flex flex-col h-full gap-4 w-full">
+      <div className="text-center mt-6 text-4xl font-bold flex flex-col gap-2">
+        <div className="text-gray-900">Get Recipes</div>
+        <div className="underline text-teal-500">Without the Story</div>
+      </div>
+
+      <div className="flex flex-col gap-4 justify-center items-center mb-6 mx-3 sm:mx-6">
+        <Socials />
+        <p className="text-center text-base text-gray-500">
+          Enter a recipe URL to get the recipe without the noise or let our AI
+          find the recipe for you
         </p>
 
-        <div className="flex gap-2 w-full max-w-2xl mx-auto">
-          <input
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-center items-center">
+          <Input
             type="text"
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Recipe URL or Dish Name"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full sm:w-80 h-12"
             disabled={processing}
           />
-          <button
+          <Button
             onClick={getArticle}
             disabled={processing || !inputUrl.trim()}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            size="lg"
+            className="w-full sm:w-auto"
           >
             {processing ? 'Loading...' : 'Get Recipe'}
-          </button>
+          </Button>
         </div>
 
         {error && (
-          <div className="w-full max-w-2xl mx-auto p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            {error}
-          </div>
+          <Card className="w-full max-w-lg border-red-200 bg-red-50">
+            <CardContent className="p-4 text-red-700">{error}</CardContent>
+          </Card>
         )}
 
         {processing && (
-          <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md border-2 border-gray-200">
-            <div className="animate-pulse space-y-4">
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-              <div className="space-y-3 mt-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i}>
-                    <div className="h-3 bg-gray-200 rounded w-1/4 mb-2"></div>
-                    <div className="h-3 bg-gray-200 rounded w-11/12 ml-4"></div>
-                    <div className="h-3 bg-gray-200 rounded w-11/12 ml-4"></div>
-                  </div>
-                ))}
+          <Card className="w-full max-w-2xl">
+            <CardContent className="p-6">
+              <div className="animate-pulse space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-3/4 mx-auto"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2 mx-auto"></div>
+                <div className="space-y-3 mt-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i}>
+                      <div className="h-3 bg-gray-200 rounded w-1/4 mb-2"></div>
+                      <div className="h-3 bg-gray-200 rounded w-11/12 ml-4"></div>
+                      <div className="h-3 bg-gray-200 rounded w-11/12 ml-4"></div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         )}
 
         {!processing && content && (
-          <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md border-2 border-gray-200">
-            <div
-              className="prose prose-slate max-w-none text-left"
-              dangerouslySetInnerHTML={renderMarkdown(content)}
-            />
-          </div>
+          <Card className="w-full max-w-2xl">
+            <CardContent className="p-6 text-left">
+              <div
+                className="prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={renderMarkdown(content)}
+              />
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>
