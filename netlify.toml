@@ -1,5 +1,6 @@
 # Netlify Configuration for Simmer.AI Monorepo
 [build]
+  base = "."
   command = "npm run build:web"
   functions = "netlify/functions"
   publish = "dist/apps/web"
@@ -7,15 +8,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
-[functions]
-  external_node_modules = ["jsdom"]
-
 # Development server configuration for Netlify Dev
 [dev]
   command = "npm run dev:web"
-  port = 4200
-  publish = "dist/apps/web"
+  port = 8899
   targetPort = 4200
+  autoLaunch = false
+  framework = "#custom"
 
 # Single Page Application routing
 [[redirects]]
