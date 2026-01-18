@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Linking,
 } from 'react-native';
+import { fetchRecipe, getApiEndpoint } from '../../../packages/shared/utils/src';
 
 export const App = () => {
   const [inputUrl, setInputUrl] = useState('');
@@ -23,27 +24,17 @@ export const App = () => {
     setProcessing(true);
     setError(null);
 
-    try {
-      const response = await fetch('https://withoutthestory.netlify.app/.netlify/functions/get-recipe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data: inputUrl }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch recipe');
-      }
-
-      const data = await response.json();
-      setContent(data.recipe || 'No content found');
-    } catch (err) {
-      setError('An error occurred while fetching the recipe');
-      console.error(err);
-    } finally {
-      setProcessing(false);
+    // Use production endpoint for now, can be changed to development
+    const endpoint = getApiEndpoint(false);
+    const result = await fetchRecipe(inputUrl, endpoint);
+    
+    if (result.error) {
+      setError(result.error);
+    } else if (result.recipe) {
+      setContent(result.recipe);
     }
+    
+    setProcessing(false);
   };
 
   const openSupportLink = () => {

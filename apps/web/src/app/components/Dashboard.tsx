@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import DOMPurify from 'dompurify';
+import { fetchRecipe } from '@simmer/shared/utils';
 
 export default function Dashboard() {
   const [inputUrl, setInputUrl] = useState('');
@@ -13,27 +14,15 @@ export default function Dashboard() {
     setProcessing(true);
     setError(null);
 
-    try {
-      const response = await fetch('/.netlify/functions/get-recipe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data: inputUrl }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch recipe');
-      }
-
-      const data = await response.json();
-      setContent(data.recipe || 'No content found');
-    } catch (err) {
-      setError('An error occurred while fetching the recipe');
-      console.error(err);
-    } finally {
-      setProcessing(false);
+    const result = await fetchRecipe(inputUrl);
+    
+    if (result.error) {
+      setError(result.error);
+    } else if (result.recipe) {
+      setContent(result.recipe);
     }
+    
+    setProcessing(false);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
