@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev:web": "nx serve @simmer/web",
-    "dev:mobile": "nx serve @simmer/mobile",
+    "dev:web": "nx serve web",
+    "dev:mobile": "nx serve mobile",
     "build": "nx run-many -t build",
-    "build:web": "nx build @simmer/web",
+    "build:web": "nx build web",
     "test": "nx run-many -t test",
     "lint": "nx run-many -t lint",
     "graph": "nx graph"
