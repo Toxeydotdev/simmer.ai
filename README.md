@@ -38,6 +38,11 @@ Or using NX directly:
 npx nx serve web
 ```
 
+Or with Netlify CLI (includes serverless functions):
+```bash
+netlify dev
+```
+
 ### Mobile Application
 
 ```bash

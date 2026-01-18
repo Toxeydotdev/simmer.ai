@@ -59,6 +59,12 @@ npm run dev:web
 ```
 Open http://localhost:4200
 
+**Using Netlify CLI (with serverless functions):**
+```bash
+netlify dev
+```
+This runs the web app with Netlify Functions support on port 4200.
+
 #### Mobile Application
 ```bash
 npm run dev:mobile
