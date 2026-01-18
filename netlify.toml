@@ -4,6 +4,9 @@
   functions = "netlify/functions"
   publish = "dist/apps/web"
 
+[build.environment]
+  NODE_VERSION = "20"
+
 [functions]
   external_node_modules = ["jsdom"]
 
