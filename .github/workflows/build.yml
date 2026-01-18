@@ -1,4 +1,4 @@
-name: Build Angular Project
+name: Build and Test
 
 on:
   push:
@@ -14,15 +14,23 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: '18'
+        cache: 'npm'
 
     - name: Install dependencies
-      run: npm install
+      run: npm install --legacy-peer-deps
 
-    - name: Build Angular project
-      run: npm run build
+    - name: Build web application
+      run: npm run build:web
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-build
+        path: dist/apps/web
+        retention-days: 7

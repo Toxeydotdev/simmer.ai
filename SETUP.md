@@ -70,16 +70,18 @@ Then scan the QR code with Expo Go app on your mobile device.
 ### Building Applications
 
 ```bash
-# Build all applications
+# Build all applications (requires EAS CLI for mobile)
 npm run build
 
-# Build web only
+# Build web only (recommended for CI)
 npm run build:web
 
 # Build specific app with NX
 npx nx build web
-npx nx build mobile
+npx nx build mobile  # Requires EAS CLI: npm install -g eas-cli
 ```
+
+**Note for CI/CD**: The mobile app requires EAS CLI to be installed globally. For CI pipelines, use `npm run build:web` to build only the web application.
 
 ### Running Tests
 
