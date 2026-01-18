@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@simmer/shared/ui": ["packages/shared/ui/src/index.ts"],
+      "@simmer/shared/utils": ["packages/shared/utils/src/index.ts"],
+      "@simmer/shared/types": ["packages/shared/types/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
