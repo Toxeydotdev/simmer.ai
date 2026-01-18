@@ -38,6 +38,8 @@ cd simmer.ai
 npm install
 ```
 
+**Note:** The repository includes an `.npmrc` file that automatically handles peer dependency conflicts using `legacy-peer-deps=true`. This ensures smooth installation in all environments including Netlify.
+
 ### 2. Environment Setup
 
 Create a `.env` file in the root directory:

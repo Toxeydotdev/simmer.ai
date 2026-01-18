@@ -25,6 +25,8 @@ This is an NX monorepo containing:
 npm install
 ```
 
+**Note:** Peer dependency conflicts are automatically handled via `.npmrc` configuration.
+
 ## Development
 
 ### Web Application
