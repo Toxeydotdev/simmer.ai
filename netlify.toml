@@ -1,24 +1,24 @@
-# example netlify.toml
+# Netlify Configuration for Simmer.AI Monorepo
 [build]
-  command = "npm run build"
+  command = "npm run build:web"
   functions = "netlify/functions"
-  publish = "dist/without-the-story/browser"
+  publish = "dist/apps/web"
+
+[build.environment]
+  NODE_VERSION = "20"
 
 [functions]
   external_node_modules = ["jsdom"]
 
-  ## Uncomment to use this redirect for Single Page Applications like create-react-app.
-  ## Not needed for static site generators.
+# Development server configuration for Netlify Dev
+[dev]
+  command = "npm run dev:web"
+  port = 4200
+  publish = "dist/apps/web"
+  targetPort = 4200
+
+# Single Page Application routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-  ## (optional) Settings for Netlify Dev
-  ## https://github.com/netlify/cli/blob/main/docs/netlify-dev.md#project-detection
-  #[dev]
-  #  command = "yarn start" # Command to start your dev server
-  #  port = 3000 # Port that the dev server will be listening on
-  #  publish = "dist" # Folder with the static content for _redirect file
-
-  ## more info on configuring this file: https://ntl.fyi/file-based-build-config
