@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   Linking,
 } from 'react-native';
-import { fetchRecipe, getApiEndpoint } from '../../../packages/shared/utils/src';
+import { fetchRecipe, getApiEndpoint } from '@simmer/shared/utils';
 
 export const App = () => {
   const [inputUrl, setInputUrl] = useState('');
